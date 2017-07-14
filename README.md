@@ -6,3 +6,5 @@ Roll A Ball
 
 Space Shooter
 
+Survival Shooter (No build, file > 100 MiB)
+
