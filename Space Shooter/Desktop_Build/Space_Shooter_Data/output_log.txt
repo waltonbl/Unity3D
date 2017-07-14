@@ -1,0 +1,73 @@
+Initialize engine version: 5.6.2f1 (a2913c821e27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: ATI FirePro (FireGL) Graphics Adapter (ID=0x68f1)
+    Vendor:   ATI
+    VRAM:     2296 MB
+    Driver:   15.201.1151.1008
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.055 seconds
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Space Shooter\Desktop_Build\Space_Shooter_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 7680x2160 at -3840,-1080
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.147390 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 5c8 -> priority: 1 
+  Thread -> id: 44a8 -> priority: 1 
+  Thread -> id: 1200 -> priority: 1 
+  Thread -> id: 3c18 -> priority: 1 
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.378465 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.409449 ms (FindLiveObjects: 0.041311 ms CreateObjectMapping: 0.034315 ms MarkObjects: 0.328492 ms  DeleteObjects: 0.004331 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.353812 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.362474 ms (FindLiveObjects: 0.022987 ms CreateObjectMapping: 0.020655 ms MarkObjects: 0.312500 ms  DeleteObjects: 0.005996 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.346815 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.404451 ms (FindLiveObjects: 0.033981 ms CreateObjectMapping: 0.037646 ms MarkObjects: 0.325826 ms  DeleteObjects: 0.005996 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.364806 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.388793 ms (FindLiveObjects: 0.040978 ms CreateObjectMapping: 0.034648 ms MarkObjects: 0.308169 ms  DeleteObjects: 0.004331 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.339819 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.403119 ms (FindLiveObjects: 0.040645 ms CreateObjectMapping: 0.039645 ms MarkObjects: 0.318497 ms  DeleteObjects: 0.003997 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.325826 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.397788 ms (FindLiveObjects: 0.040978 ms CreateObjectMapping: 0.037979 ms MarkObjects: 0.313500 ms  DeleteObjects: 0.004331 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.342484 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.405118 ms (FindLiveObjects: 0.037313 ms CreateObjectMapping: 0.038312 ms MarkObjects: 0.324494 ms  DeleteObjects: 0.003997 ms)
+
