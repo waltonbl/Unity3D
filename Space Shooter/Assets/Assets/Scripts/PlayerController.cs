@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Boundary {
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject shot;
     public Transform shotSpawn;
+    public Transform shotSpawn_1;
+    public Transform shotSpawn_2;
     public float fireRate;
 
     public AudioSource ac;
@@ -31,7 +34,15 @@ public class PlayerController : MonoBehaviour {
     private void Update() {
         if (Input.GetButton("Fire1") && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            Scene currentScene = SceneManager.GetActiveScene(); // [1]
+            string sceneName = currentScene.name;
+            if (sceneName == "Main") {
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            }
+            else if (sceneName == "Level_2") {
+                Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
+                Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
+            }
             ac.Play();
         }
     }
@@ -52,11 +63,8 @@ public class PlayerController : MonoBehaviour {
 
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
-
-
-
-
-
-
-
 }
+
+
+
+// [1] http://answers.unity3d.com/questions/1173303/how-to-check-which-scene-is-loaded-and-write-if-co.html
