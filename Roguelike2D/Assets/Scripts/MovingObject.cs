@@ -56,7 +56,7 @@ public abstract class MovingObject : MonoBehaviour {
                 OnCantMove(hitComponent);
         }
 
-    protected abstract void OnCantMove<T>(T compenent)
+    protected abstract void OnCantMove<T>(T component)
         where T : Component;
     
 }
