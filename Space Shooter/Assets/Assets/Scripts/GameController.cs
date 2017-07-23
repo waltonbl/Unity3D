@@ -1,17 +1,20 @@
-﻿using System.Collections;
+﻿/* GameController.cs is used to control game actions such as spawning waves of enemies,
+ * level control, and scoring. */
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
      private bool gameOver;
      private bool restart;
-     
 
      public GameObject[] hazards;
      public GUIText gameOverText;
      public GUIText restartText;
      public GUIText scoreText;
+     public GUIText missionText;
      public Vector3 spawnValues;
      public int hazardCount;
      public float spawnWait;
@@ -19,6 +22,8 @@ public class GameController : MonoBehaviour {
      public float waveWait;
      public int changeLow_L1;
      public int changeHigh_L1;
+     public int changeLow_L2;
+     public int changeHigh_L2;
 
      private void Start() {
           gameOver = false;
@@ -32,15 +37,22 @@ public class GameController : MonoBehaviour {
      private void Update() {
           if (restart) {
                if (Input.GetKeyDown(KeyCode.R)) {
-                    SceneManager.LoadScene(0); //SceneManager.GetActiveScene().buildIndex);
+                    SceneManager.LoadScene(0);
                }
           }
           if(GameState.score >= changeLow_L1 && GameState.score <= changeHigh_L1) {
                Scene scene = SceneManager.GetActiveScene();
-               if(scene.name == "Main")
+               if (scene.name == "Main") {
+                    SceneManager.LoadScene(scene.buildIndex + 1);
+                }
+          }
+          else if (GameState.score >= changeLow_L2 && GameState.score <= changeHigh_L2) {
+               Scene scene = SceneManager.GetActiveScene();
+               if (scene.name == "Level_2")
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
           }
      }
+
 
      IEnumerator SpawnWaves() {
           yield return new WaitForSeconds(startWait);
