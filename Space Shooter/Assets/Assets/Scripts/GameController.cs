@@ -1,5 +1,5 @@
 ﻿/* GameController.cs is used to control game actions such as spawning waves of enemies,
- * level control, and scoring. */
+ * level control, scoring, and scene transition fading. */
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 
      private bool gameOver;
      private bool restart;
+     private float fadeTime;
 
      public GameObject[] hazards;
      public GUIText gameOverText;
@@ -34,6 +35,7 @@ public class GameController : MonoBehaviour {
           StartCoroutine (SpawnWaves());
      }
 
+
      private void Update() {
           if (restart) {
                if (Input.GetKeyDown(KeyCode.R)) {
@@ -43,13 +45,13 @@ public class GameController : MonoBehaviour {
           if(GameState.score >= changeLow_L1 && GameState.score <= changeHigh_L1) {
                Scene scene = SceneManager.GetActiveScene();
                if (scene.name == "Main") {
-                    SceneManager.LoadScene(scene.buildIndex + 1);
+                   StartCoroutine(ChangeLevel(scene));
                 }
           }
           else if (GameState.score >= changeLow_L2 && GameState.score <= changeHigh_L2) {
                Scene scene = SceneManager.GetActiveScene();
                if (scene.name == "Level_2")
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    StartCoroutine(ChangeLevel(scene));
           }
      }
 
@@ -74,6 +76,12 @@ public class GameController : MonoBehaviour {
                     break;
                }
           }
+     }
+
+     IEnumerator ChangeLevel(Scene scene) {
+          fadeTime = GameObject.Find("_GM").GetComponent<Fader>().BeginFade(1);
+          yield return new WaitForSeconds(fadeTime);
+          SceneManager.LoadScene(scene.buildIndex + 1);
      }
 
      public void AddScore(int newScoreValue) {
