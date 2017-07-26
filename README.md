@@ -8,10 +8,11 @@ Space Shooter (Extended version - several files ommitte due to > 100 MiB)
 
 Survival Shooter (No build, file > 100 MiB)
 
+SurvivalShooter_2 (Custom prefabs)
+
 Tanks (2 player - no build, file > 100MiB)
 
 RogueLike2D
-
 
 Bacgrounds (Select potential backgrounds for implementation)
 
