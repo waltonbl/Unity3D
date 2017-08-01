@@ -3,7 +3,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -27,15 +26,23 @@ public class GameController : MonoBehaviour {
      public float startWait;
      public float waveWait;
 
-     private void Start() {
+     int[] registerBossType;
+     bool[] isDead;
 
+
+     private void Start() {
+          registerBossType = new int[bossCount];
+          isDead = new bool[bossCount];
+          for (int i = 0; i < bossCount; i++) {
+               registerBossType[i] = 0;
+               isDead[i] = false;     
+          }
           gameOver = false;
           gameOverText.text = ""; 
           restart = false;
           restartText.text = "";
           allSpawnsCompleted = false;
           UpdateScore();
-          GameState.bossesDestroyed = 0;
           GameState.bossesNotDestroyed = 0;
           GameState.playerDestroyed = 0;
           StartCoroutine (SpawnWaves());
@@ -51,12 +58,11 @@ public class GameController : MonoBehaviour {
                }
           }
 
-          if (GameState.bossesDestroyed >= bossCount) {
+          if (AllBossesAreDead() == true) {
                Scene scene = SceneManager.GetActiveScene();
-               if(scene.name != "Winner") {
+               if (scene.name != "Winner") {
                     StartCoroutine(ChangeLevel(scene));
                }
-
           }
 
           if (allSpawnsCompleted == true && GameState.bossesNotDestroyed > 0) {
@@ -64,7 +70,7 @@ public class GameController : MonoBehaviour {
                StartCoroutine(LoadLevelZero());
           }
 
-          if (Input.GetKeyDown(KeyCode.Escape) == true) { // WILL NOT NWORK IN EDITOR! OK in builds.
+          if (Input.GetKeyDown(KeyCode.Escape) == true) { // WILL NOT WORK IN EDITOR! OK in builds.
                Application.Quit();
           }
 
@@ -113,12 +119,21 @@ public class GameController : MonoBehaviour {
                waveCount--;
                yield return new WaitForSeconds(waveWait);
 
-               if (waveCount < 1 && GameState.bossesDestroyed < bossCount && GameState.playerDestroyed == 0) {
+               if (waveCount == 0 && GameState.playerDestroyed == 0) {
                     for (int i = 0; i < bossCount; i++) {
                          GameObject boss = bosses[Random.Range(0, bosses.Length)];
                          Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                          Quaternion spawnRotation = Quaternion.identity;
                          Instantiate(boss, spawnPosition, spawnRotation);
+                         if (boss.tag == "Boss_1") {
+                              registerBossType[i] = 1;
+                         }
+                         else if(boss.tag == "Boss_2") {
+                              registerBossType[i] = 2;
+                         }
+                         else {
+                              registerBossType[i] = 3;
+                         }
                          yield return new WaitForSeconds(spawnWait);
                     }
                }
@@ -150,28 +165,63 @@ public class GameController : MonoBehaviour {
      }
 
 
+     // Are two of the three parameters true?
+     bool TwoOfThree(bool a, bool b, bool c) {
+          return (a != b) || (b != c);
+     }
+
+
+     // Boss scoring: Boss_1 = 50, Boss_2 = 60, Boss_3 = 75.
      public void AddScore(int newScoreValue) {
           GameState.score += newScoreValue;
           UpdateScore();
-          if (newScoreValue > 49) {
-               GameState.bossesDestroyed++;
-               GameState.bossesDestroyedDB++;
+          if (newScoreValue == 50) {
+               ManageBossDeath(1);
+          }
+          else if (newScoreValue == 60) {
+               ManageBossDeath(2);
+          }
+          else if (newScoreValue == 75) {
+               ManageBossDeath(3);
           }
      }
 
 
-      void UpdateScore() {
+     private int ManageBossDeath(int bossType) {
+          for (int i = 0; i < bossCount; i++) {
+               if (registerBossType[i] == bossType) {
+                    if(isDead[i] == false) {
+                         isDead[i] = true;
+                         return 0;
+                    }
+               }
+          }
+          return 0;
+     }
+
+
+     private bool AllBossesAreDead() {
+          for (int i = 0; i < bossCount; i++) {
+               if (isDead[i] == false) {
+                    return false;
+               }
+          }
+          return true;
+     }
+
+
+     void UpdateScore() {
           scoreText.text = "Score: " + GameState.score;
- //       failedToDestroy.text = "BD: " + GameState.bossesDestroyed + " BD_db: " + GameState.bossesDestroyedDB + 
- //                              " BND: " + GameState.bossesNotDestroyed + " BND_db: " + GameState.bossesNotDestroyedDB +
- //                              " PD: " + GameState.playerDestroyed + " PD_db: " + GameState.playerDestroyedDB;
       }
 
 
-    void ResetState(bool alsoResetScore) {
+    private void ResetState(bool alsoResetScore) {
           GameState.bossesNotDestroyed = 0;
-          GameState.bossesDestroyed = 0;
           GameState.playerDestroyed = 0;
+          for (int i = 0; i < bossCount; i++) {
+               registerBossType[i] = 0;
+               isDead[i] = false;
+          }
           if (alsoResetScore) {
                GameState.score = 0;
           }
@@ -190,4 +240,7 @@ public class GameController : MonoBehaviour {
 [1] http://answers.unity3d.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html
 [2] http://answers.unity3d.com/questions/698531/how-to-make-esc-button-quit.html
 [3] https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.GetSceneAt.html
+[4] https://stackoverflow.com/questions/5343772/code-that-return-true-if-only-one-or-two-of-three-params-are-true
+[5] http://answers.unity3d.com/questions/1189512/how-do-i-check-if-all-booleans-in-an-array-are-tru.html
+[6] https://stackoverflow.com/questions/5678216/all-possible-c-sharp-array-initialization-syntaxes
 */
