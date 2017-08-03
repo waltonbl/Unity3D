@@ -8,7 +8,7 @@ public class EvasiveManuever : MonoBehaviour {
      private float currentSpeed;
      private float targetManuever;
      private Rigidbody rb;
-
+     
      public float dodge;
      public float smoothing;
      public float tilt;
@@ -16,7 +16,8 @@ public class EvasiveManuever : MonoBehaviour {
      public Vector2 manueverTime;
      public Vector2 manueverWait;
      public Boundary boundary;
-    
+     public float timeRemaining;    
+
 	void Start () {
           rb = GetComponent<Rigidbody>();
           currentSpeed = rb.velocity.z;
@@ -43,5 +44,14 @@ public class EvasiveManuever : MonoBehaviour {
                Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
           );
           rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
-	}
+          timeRemaining -= Time.deltaTime;
+          if (timeRemaining < 0) {
+               boundary.zMin = -20;
+          }
+     }
+     
 }
+
+/* CITATIONS:
+[1] http://answers.unity3d.com/questions/225213/c-countdown-timer.html
+*/

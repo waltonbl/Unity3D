@@ -125,6 +125,7 @@ public class GameController : MonoBehaviour {
                          Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                          Quaternion spawnRotation = Quaternion.identity;
                          Instantiate(boss, spawnPosition, spawnRotation);
+
                          if (boss.tag == "Boss_1") {
                               registerBossType[i] = 1;
                          }
@@ -134,6 +135,7 @@ public class GameController : MonoBehaviour {
                          else {
                               registerBossType[i] = 3;
                          }
+
                          yield return new WaitForSeconds(spawnWait);
                     }
                }
@@ -162,12 +164,6 @@ public class GameController : MonoBehaviour {
           fadeTime = GameObject.Find("_GM").GetComponent<Fader>().BeginFade(1);
           yield return new WaitForSeconds(fadeTime);
           SceneManager.LoadScene(0);
-     }
-
-
-     // Are two of the three parameters true?
-     bool TwoOfThree(bool a, bool b, bool c) {
-          return (a != b) || (b != c);
      }
 
 
@@ -240,7 +236,7 @@ public class GameController : MonoBehaviour {
 [1] http://answers.unity3d.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html
 [2] http://answers.unity3d.com/questions/698531/how-to-make-esc-button-quit.html
 [3] https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.GetSceneAt.html
-[4] https://stackoverflow.com/questions/5343772/code-that-return-true-if-only-one-or-two-of-three-params-are-true
+[4] 
 [5] http://answers.unity3d.com/questions/1189512/how-do-i-check-if-all-booleans-in-an-array-are-tru.html
 [6] https://stackoverflow.com/questions/5678216/all-possible-c-sharp-array-initialization-syntaxes
 */
