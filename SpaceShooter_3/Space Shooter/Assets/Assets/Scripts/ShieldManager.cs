@@ -5,9 +5,10 @@ using UnityEngine;
 public class ShieldManager : MonoBehaviour {
 
      public GameObject shield;
+     public GameObject explosion;
 
-	// Use this for initialization
-	void Start () {
+     // Use this for initialization
+     void Start () {
           shield.SetActive(false);
           GameState.timeToShieldDown = 0;
 	}
@@ -22,6 +23,15 @@ public class ShieldManager : MonoBehaviour {
           if(GameState.timeToShieldDown > 0)
                GameState.timeToShieldDown -= Time.deltaTime;
 	}
+
+
+     void OnTriggerEnter(Collider other) {
+          if ( other.CompareTag("Enemy") ) {
+               Instantiate(explosion, other.transform.position, other.transform.rotation);
+          }
+     }
+
+
 
 }
 
