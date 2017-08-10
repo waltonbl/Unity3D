@@ -26,8 +26,7 @@ public class ShieldManager : MonoBehaviour {
 
 
      void OnTriggerEnter(Collider other) {
-          if ( other.CompareTag("Enemy") || other.CompareTag("Boss_1") || other.CompareTag("Boss_2")
-            || other.CompareTag("Boss_3") || other.CompareTag("Boss_4") || other.CompareTag("Boss_5") || other.CompareTag("Boss_6")) {
+          if ( other.CompareTag("Enemy") ) {
                Instantiate(explosion, other.transform.position, other.transform.rotation);
           }
      }

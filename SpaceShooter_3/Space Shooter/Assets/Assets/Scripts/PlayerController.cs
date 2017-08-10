@@ -42,36 +42,36 @@ public class PlayerController : MonoBehaviour {
                     Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                }
                else if (sceneName == "Level_2") {
-                    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-                    //Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
+                    Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
+                    Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
                }
                else if (sceneName == "Level_3") {
-                    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-                    //Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    //Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    //Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
+                    Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
+                    Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
+                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
+                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
                }
                else if (sceneName == "Level_4") {
                     Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                     Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    //Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    //Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
+                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
+                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
                }
                else if(sceneName == "Level_5") {
                     Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                     Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    //Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    //Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
-                    //Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
-                    //Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
+                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
+                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
+                    Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
+                    Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
                }
                else if(sceneName == "Level_6") {
-                    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                     Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                     Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    //Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
-                    //Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
-                    //Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
+                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
+                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
+                    Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
+                    Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
                }
                ac.Play();
           }

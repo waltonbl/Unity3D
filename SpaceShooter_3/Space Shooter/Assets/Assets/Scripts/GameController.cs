@@ -132,20 +132,11 @@ public class GameController : MonoBehaviour {
                          else if(boss.tag == "Boss_2") {
                               registerBossType[i] = 2;
                          }
-                         else if (boss.tag == "Boss_3") {
+                         else {
                               registerBossType[i] = 3;
                          }
-                         else if (boss.tag == "Boss_4") { 
-                              registerBossType[i] = 4;
-                         }
-                         else if (boss.tag == "Boss_5") { 
-                              registerBossType[i] = 5;
-                         }
-                        else if (boss.tag == "Boss_6") { 
-                              registerBossType[i] = 6;
-                         }
 
-                    yield return new WaitForSeconds(spawnWait);
+                         yield return new WaitForSeconds(spawnWait);
                     }
                }
 
@@ -180,24 +171,15 @@ public class GameController : MonoBehaviour {
      public void AddScore(int newScoreValue) {
           GameState.score += newScoreValue;
           UpdateScore();
-          if (newScoreValue == 100) {
+          if (newScoreValue == 50) {
                ManageBossDeath(1);
           }
-          else if (newScoreValue == 250) {
+          else if (newScoreValue == 60) {
                ManageBossDeath(2);
           }
-          else if (newScoreValue == 350) {
+          else if (newScoreValue == 75) {
                ManageBossDeath(3);
           }
-          else if (newScoreValue == 500) { 
-               ManageBossDeath(4);
-          }
-          else if (newScoreValue == 600) {
-               ManageBossDeath(5);
-        }
-          else if (newScoreValue == 1000) {
-               ManageBossDeath(6);
-        }
      }
 
 

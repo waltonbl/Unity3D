@@ -18,15 +18,15 @@ public class WeaponController : MonoBehaviour {
           if (sceneID == 0)
                fireRate = 1.5f;
           else if (sceneID == 1)
-               fireRate = 1.5f;
+               fireRate = 1.0f;
           else if (sceneID == 2)
-               fireRate = 1.5f;
+               fireRate = 0.75f;
           else if (sceneID == 3)
-               fireRate = 1.5f;
+               fireRate = 0.5f;
           else if (sceneID == 4)
-               fireRate = 1.5f;
+               fireRate = 0.3f;
           else if (sceneID == 5)
-               fireRate = 1.5f;
+               fireRate = 0.2f;
           InvokeRepeating("Fire", delay, fireRate);
      }
 

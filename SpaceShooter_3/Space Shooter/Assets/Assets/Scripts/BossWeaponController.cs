@@ -18,17 +18,17 @@ public class BossWeaponController : MonoBehaviour {
           audioSource = GetComponent<AudioSource>();
           sceneID = SceneManager.GetActiveScene().buildIndex;
           if (sceneID == 0)
-               fireRate = 0.3f;
+               fireRate = 1.0f;
           else if (sceneID == 1)
-               fireRate = 1.8f;
+               fireRate = 0.75f;
           else if (sceneID == 2)
-               fireRate = 1.6f;
+               fireRate = 0.5f;
           else if (sceneID == 3)
-               fireRate = 1.6f;
+               fireRate = 0.4f;
           else if (sceneID == 4)
-               fireRate = 1.4f;
+               fireRate = 0.4f;
           else if (sceneID == 5)
-               fireRate = 1.4f;
+               fireRate = 0.4f;
           InvokeRepeating("Fire", delay, fireRate);
      }
 
@@ -53,20 +53,17 @@ public class BossWeaponController : MonoBehaviour {
           else if (sceneID == 3) {
                Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-               Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
           }
           // Level_5
           else if (sceneID == 4) {
                Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-               Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
           }
           // Level_6
           else if (sceneID == 5) {
                Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
                Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-               Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-        }
+          }
           audioSource.Play();
      }
 

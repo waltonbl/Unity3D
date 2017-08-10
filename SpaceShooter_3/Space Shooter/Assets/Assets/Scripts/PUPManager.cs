@@ -24,7 +24,6 @@ public class PUPManager : MonoBehaviour {
      void OnTriggerEnter(Collider other) {
           if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Boss")
               || other.CompareTag("Boss_1") || other.CompareTag("Boss_2") || other.CompareTag("Boss_3")
-              || other.CompareTag("Boss_4") || other.CompareTag("Boss_5") || other.CompareTag("Boss_6")
               || /*other.CompareTag("ShieldPUP") ||*/ other.CompareTag("PlayerBolt") ) {
                return;
           }
