@@ -1,15 +1,14 @@
-﻿/* WeaponController.cs script is the auto firing controller for Enemy ships. */
+﻿/* WeaponController.cd script is the auto firing controller for Enemy ships/ */
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WeaponController : MonoBehaviour {
 
      private AudioSource audioSource;
-     private float fireRate;
      private int sceneID;
-
      public GameObject shot;
      public Transform shotSpawn;
+     private float fireRate;
      public float delay;
 
 	void Start () {
@@ -21,12 +20,6 @@ public class WeaponController : MonoBehaviour {
                fireRate = 1.0f;
           else if (sceneID == 2)
                fireRate = 0.75f;
-          else if (sceneID == 3)
-               fireRate = 0.5f;
-          else if (sceneID == 4)
-               fireRate = 0.3f;
-          else if (sceneID == 5)
-               fireRate = 0.2f;
           InvokeRepeating("Fire", delay, fireRate);
      }
 
@@ -34,5 +27,4 @@ public class WeaponController : MonoBehaviour {
           Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
           audioSource.Play();
      }
-
 }

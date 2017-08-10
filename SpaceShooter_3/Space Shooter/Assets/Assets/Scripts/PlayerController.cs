@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour {
      public Transform shotSpawn_2;
      public Transform shotSpawn_3;
      public Transform shotSpawn_4;
-     public Transform shotSpawn_5;
-     public Transform shotSpawn_6;
      public float fireRate;
      public AudioSource ac;
 
@@ -51,38 +49,15 @@ public class PlayerController : MonoBehaviour {
                     Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
                     Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
                }
-               else if (sceneName == "Level_4") {
-                    Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
-                    Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
-               }
-               else if(sceneName == "Level_5") {
-                    Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
-                    Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
-                    Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
-                    Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
-               }
-               else if(sceneName == "Level_6") {
-                    Instantiate(shot, shotSpawn_1.position, shotSpawn_1.rotation);
-                    Instantiate(shot, shotSpawn_2.position, shotSpawn_2.rotation);
-                    Instantiate(shot, shotSpawn_3.position, shotSpawn_3.rotation);
-                    Instantiate(shot, shotSpawn_4.position, shotSpawn_4.rotation);
-                    Instantiate(shot, shotSpawn_5.position, shotSpawn_5.rotation);
-                    Instantiate(shot, shotSpawn_6.position, shotSpawn_6.rotation);
-               }
                ac.Play();
           }
-    
      }
 
 
      private void FixedUpdate() {
           float moveHorizontal = Input.GetAxis("Horizontal");
           float moveVertical = Input.GetAxis("Vertical");
-
+          //Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
           Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
           rb.velocity = movement * speed;
 
@@ -93,7 +68,6 @@ public class PlayerController : MonoBehaviour {
                );
 
           rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
-//          Instantiate(shield, shieldSpawn.position, shieldSpawn.rotation);
      }
 }
 

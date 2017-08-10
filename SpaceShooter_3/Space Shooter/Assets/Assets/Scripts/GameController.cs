@@ -3,111 +3,66 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
      private bool gameOver;
      private bool restart;
      private float fadeTime;
-     private bool allSpawnsCompleted;
 
      public GameObject[] hazards;
-     public GameObject[] bosses;
      public GUIText gameOverText;
      public GUIText restartText;
      public GUIText scoreText;
      public GUIText missionText;
-     public GUIText message;
+     public GUIText fuelText;
      public Vector3 spawnValues;
      public int hazardCount;
-     public int bossCount;
-     public int waveCount;
      public float spawnWait;
      public float startWait;
      public float waveWait;
-
-     int[] registerBossType;
-     bool[] isDead;
-
+     public int changeLow_L1;
+     public int changeHigh_L1;
+     public int changeLow_L2;
+     public int changeHigh_L2;
 
      private void Start() {
-          registerBossType = new int[bossCount];
-          isDead = new bool[bossCount];
-          for (int i = 0; i < bossCount; i++) {
-               registerBossType[i] = 0;
-               isDead[i] = false;     
-          }
           gameOver = false;
           gameOverText.text = ""; 
           restart = false;
           restartText.text = "";
-          allSpawnsCompleted = false;
           UpdateScore();
-          GameState.bossesNotDestroyed = 0;
-          GameState.playerDestroyed = 0;
+          GameState.fuelAmount = 50;
+          UpdateFuel();
           StartCoroutine (SpawnWaves());
+          StartCoroutine(DecreaseFuel());
      }
 
 
      private void Update() {
-
           if (restart) {
                if (Input.GetKeyDown(KeyCode.R)) {
-                    ResetState(true);
-                    StartCoroutine(LoadLevelZero());
+                    SceneManager.LoadScene(0);
                }
           }
-
-          if (AllBossesAreDead() == true) {
+          if(GameState.score >= changeLow_L1 && GameState.score <= changeHigh_L1) {
                Scene scene = SceneManager.GetActiveScene();
-               if (scene.name != "Winner") {
+               if (scene.name == "Main") {
+                   StartCoroutine(ChangeLevel(scene));
+                }
+          }
+          else if (GameState.score >= changeLow_L2 && GameState.score <= changeHigh_L2) {
+               Scene scene = SceneManager.GetActiveScene();
+               if (scene.name == "Level_2")
                     StartCoroutine(ChangeLevel(scene));
-               }
           }
-
-          if (allSpawnsCompleted == true && GameState.bossesNotDestroyed > 0) {
-               ResetState(true);
-               StartCoroutine(LoadLevelZero());
-          }
-
-          if (Input.GetKeyDown(KeyCode.Escape) == true) { // WILL NOT WORK IN EDITOR! OK in builds.
-               Application.Quit();
-          }
-
-          if (Input.GetKeyDown(KeyCode.P) == true) {
-               Scene scene = SceneManager.GetActiveScene();
-               if (scene.name == "Winner") {
-                    ResetState(false);
-               }
-               else {
-                    ResetState(true);
-               }
-               StartCoroutine(LoadLevelZero());
-          }
-
-          if (Input.GetKeyDown(KeyCode.J) == true) {
-               Scene scene = SceneManager.GetActiveScene();
-               if (scene.name != "Winner") {
-                    ResetState(false);
-                    StartCoroutine(ChangeLevel(scene));
-               }
-               else {
-                    ResetState(true);
-                    StartCoroutine(LoadLevelZero());
-               }
-          }
-
-          if (gameOver) {
-               ResetState(true);
-               StartCoroutine(LoadLevelZero());
-          }
-
      }
 
 
      IEnumerator SpawnWaves() {
           yield return new WaitForSeconds(startWait);
-          while (waveCount > 0) {
+          while (true) {
                for (int i = 0; i < hazardCount; i++) {
                     GameObject hazard = hazards[Random.Range(0, hazards.Length)];
                     Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
@@ -115,128 +70,63 @@ public class GameController : MonoBehaviour {
                     Instantiate(hazard, spawnPosition, spawnRotation);
                     yield return new WaitForSeconds(spawnWait);
                }
-
-               waveCount--;
                yield return new WaitForSeconds(waveWait);
-
-               if (waveCount == 0 && GameState.playerDestroyed == 0) {
-                    for (int i = 0; i < bossCount; i++) {
-                         GameObject boss = bosses[Random.Range(0, bosses.Length)];
-                         Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                         Quaternion spawnRotation = Quaternion.identity;
-                         Instantiate(boss, spawnPosition, spawnRotation);
-
-                         if (boss.tag == "Boss_1") {
-                              registerBossType[i] = 1;
-                         }
-                         else if(boss.tag == "Boss_2") {
-                              registerBossType[i] = 2;
-                         }
-                         else {
-                              registerBossType[i] = 3;
-                         }
-
-                         yield return new WaitForSeconds(spawnWait);
-                    }
-               }
 
                if (gameOver) {
                     restartText.text = "Press 'R' for Restart";
                     restart = true;
-                    ResetState(true);
+                    GameState.score = 0;
+                    GameState.count = 0;
                     break;
                }
           }
-
-          allSpawnsCompleted = true;
      }
-
 
      IEnumerator ChangeLevel(Scene scene) {
           fadeTime = GameObject.Find("_GM").GetComponent<Fader>().BeginFade(1);
-          ResetState(false);
           yield return new WaitForSeconds(fadeTime);
           SceneManager.LoadScene(scene.buildIndex + 1);
      }
 
+    IEnumerator DecreaseFuel()
+    {
+        yield return new WaitForSeconds(1F);
+        GameState.fuelAmount--;
+        UpdateFuel();
+        if (GameState.fuelAmount <= 0)
+        {
+            GameOver();
+        }
+        StartCoroutine(DecreaseFuel());
+    }
 
-     IEnumerator LoadLevelZero() {
-          fadeTime = GameObject.Find("_GM").GetComponent<Fader>().BeginFade(1);
-          yield return new WaitForSeconds(fadeTime);
-          SceneManager.LoadScene(0);
-     }
-
-
-     // Boss scoring: Boss_1 = 50, Boss_2 = 60, Boss_3 = 75.
      public void AddScore(int newScoreValue) {
           GameState.score += newScoreValue;
+          GameState.count++;
           UpdateScore();
-          if (newScoreValue == 50) {
-               ManageBossDeath(1);
-          }
-          else if (newScoreValue == 60) {
-               ManageBossDeath(2);
-          }
-          else if (newScoreValue == 75) {
-               ManageBossDeath(3);
-          }
      }
 
-
-     private int ManageBossDeath(int bossType) {
-          for (int i = 0; i < bossCount; i++) {
-               if (registerBossType[i] == bossType) {
-                    if(isDead[i] == false) {
-                         isDead[i] = true;
-                         return 0;
-                    }
-               }
-          }
-          return 0;
+     public void AddFuel(int fuelValue)
+     {
+          GameState.fuelAmount += fuelValue;
+          GameState.fuelAmount = Mathf.Clamp(GameState.fuelAmount, 0, 50);
+          UpdateFuel();
      }
-
-
-     private bool AllBossesAreDead() {
-          for (int i = 0; i < bossCount; i++) {
-               if (isDead[i] == false) {
-                    return false;
-               }
-          }
-          return true;
-     }
-
 
      void UpdateScore() {
           scoreText.text = "Score: " + GameState.score;
-      }
-
-
-    private void ResetState(bool alsoResetScore) {
-          GameState.bossesNotDestroyed = 0;
-          GameState.playerDestroyed = 0;
-          for (int i = 0; i < bossCount; i++) {
-               registerBossType[i] = 0;
-               isDead[i] = false;
-          }
-          if (alsoResetScore) {
-               GameState.score = 0;
-          }
      }
 
+     void UpdateFuel()
+     {
+          fuelText.text = "Fuel: " + GameState.fuelAmount;
+     }
 
      public void GameOver() {
           gameOverText.text = "Game Over!";
           gameOver = true;
-          restart = true;
      }
 
 }
 
-/* CITATIONS:
-[1] http://answers.unity3d.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html
-[2] http://answers.unity3d.com/questions/698531/how-to-make-esc-button-quit.html
-[3] https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.GetSceneAt.html
-[4] 
-[5] http://answers.unity3d.com/questions/1189512/how-do-i-check-if-all-booleans-in-an-array-are-tru.html
-[6] https://stackoverflow.com/questions/5678216/all-possible-c-sharp-array-initialization-syntaxes
-*/
+// http://answers.unity3d.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html

@@ -22,9 +22,9 @@ public class PUPManager : MonoBehaviour {
      }
 
      void OnTriggerEnter(Collider other) {
-          if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Boss")
+          if (other.CompareTag("Boundary") || other.CompareTag("Enemy") /*|| other.CompareTag("Boss")*/
               || other.CompareTag("Boss_1") || other.CompareTag("Boss_2") || other.CompareTag("Boss_3")
-              || /*other.CompareTag("ShieldPUP") ||*/ other.CompareTag("PlayerBolt") ) {
+              || /*other.CompareTag("ShieldPUP") ||*/ other.CompareTag("PlayerBolt") || other.CompareTag("Untagged") ) {
                return;
           }
 
